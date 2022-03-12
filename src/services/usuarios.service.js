@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "./api/tareas.js";
 
 const req = axios.create({
   baseURL: process.env.REACT_APP_API,
@@ -20,4 +21,16 @@ const login = async () => {
   }
 };
 
-export { login };
+const getUsuarios = async () => {
+  try {
+    const res = await api.get("/usuarios");
+    return res.data;
+  } catch (error) {
+    console.log(error.response.data);
+    console.log(error.response.status);
+    console.log(error.response.headers);
+    throw Error("Error al consultar usuarios");
+  }
+};
+
+export { login, getUsuarios };

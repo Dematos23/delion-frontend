@@ -1,34 +1,40 @@
-import axios from "axios";
+import api from "./api/tareas.js";
+import add from "date-fns/add";
 
-const req = axios.create({
-  baseURL: process.env.REACT_APP_API,
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-});
-
-const getTareas = async () => {
+const getTareas = async (data) => {
   try {
-    const res = await req.get("/tareas", {
-      usuarioId: 1,
-      orderBy: "tarea",
-      sort: "asc",
-      estado: ["EN_PROCESO"],
-    });
-    console.log(res.data);
+    const res = await api.post("/tareas", data);
+    return res.data;
   } catch (error) {
+    console.log(error.response.data);
+    console.log(error.response.status);
+    console.log(error.response.headers);
     throw Error("Error al consultar tareas");
   }
 };
 
 const getTareaId = async (id) => {
   try {
-    const res = await req.get(`/tareas/${id}`);
+    const res = await api.get(`/tareas/${id}`);
     return res.data;
   } catch (error) {
+    console.log(error.response.data);
+    console.log(error.response.status);
+    console.log(error.response.headers);
     throw Error("Error al consultar tareas");
   }
 };
 
-export { getTareas, getTareaId };
+const postTarea = async (data) => {
+  try {
+    const res = await api.post(`/tarea`, data);
+    return res.data;
+  } catch (error) {
+    console.log(error.response.data);
+    console.log(error.response.status);
+    console.log(error.response.headers);
+    throw Error("Error al crear tarea");
+  }
+};
+
+export { getTareas, getTareaId, postTarea };
