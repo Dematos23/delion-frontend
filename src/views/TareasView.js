@@ -17,7 +17,7 @@ export default function TareasView() {
   };
   const [req, setReq] = useState(reqInicial);
   const [actualizarTareas, setActualizarTareas] = useState(true);
-  const estados = ["En proceso", "En revisión", "Completo"];
+  const estados = ["En proceso", "En En revision", "Completo"];
 
   useEffect(() => {
     const fetch = async () => {
@@ -45,7 +45,12 @@ export default function TareasView() {
         usuarios={usuarios}
         estados={estados}
       ></TareasControl>
-      <TareasLista tareas={tareas}></TareasLista>
+      <TareasLista
+        tareas={tareas}
+        setActualizarTareas={setActualizarTareas}
+        usuarios={usuarios}
+        estados={estados}
+      ></TareasLista>
     </div>
   );
 }

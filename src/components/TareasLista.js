@@ -4,7 +4,12 @@ import { Button, Table, Row, Col, Container } from "react-bootstrap";
 import { format } from "date-fns";
 import TareaCard from "../components/TareaCard.js";
 
-export default function TareasLista({ tareas }) {
+export default function TareasLista({
+  tareas,
+  setActualizarTareas,
+  usuarios,
+  estados,
+}) {
   const [tarea, setTarea] = useState();
   const [showCard, setShowCard] = useState(false);
   function closeCard() {
@@ -68,7 +73,13 @@ export default function TareasLista({ tareas }) {
         {showCard === true ? (
           <Col md={4}>
             <Container fluid className="pt-3">
-              <TareaCard tarea={tarea} closeCard={closeCard}></TareaCard>
+              <TareaCard
+                tarea={tarea}
+                closeCard={closeCard}
+                setActualizarTareas={setActualizarTareas}
+                usuarios={usuarios}
+                estados={estados}
+              ></TareaCard>
             </Container>
           </Col>
         ) : (

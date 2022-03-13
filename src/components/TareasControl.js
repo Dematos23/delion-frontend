@@ -16,7 +16,7 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
-import TareaCrear from "./TareaCrear.js";
+import TareaModal from "./TareaModal.js";
 
 export default function TareasControl({
   setActualizarTareas,
@@ -29,7 +29,7 @@ export default function TareasControl({
         <Container fluid>
           <ButtonGroup vertical>
             <Navbar.Brand>
-              <TareaCrear
+              <TareaModal
                 setActualizarTareas={setActualizarTareas}
                 estados={estados}
                 usuarios={usuarios}
@@ -44,11 +44,7 @@ export default function TareasControl({
             <Nav className="me-auto">
               <Stack direction="horizontal" gap={3}>
                 <InputGroup>
-                  <FormControl
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
+                  <FormControl type="search" placeholder="Buscar tarea" />
                   <Button variant="outline-secondary">
                     <BsSearch></BsSearch>
                   </Button>

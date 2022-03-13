@@ -3,11 +3,17 @@ import { Button, Container, Row, Col, CloseButton } from "react-bootstrap";
 import { format } from "date-fns";
 import Card from "react-bootstrap/Card";
 import { BsFillFileEarmarkPdfFill } from "react-icons/bs";
+import TareaModal from "./TareaModal.js";
 
-export default function TareaCard({ tarea, closeCard }) {
+export default function TareaCard({
+  tarea,
+  closeCard,
+  setActualizarTareas,
+  usuarios,
+  estados,
+}) {
   const [estado, setEstado] = useState();
   const [deadline, setDeadline] = useState();
-
   useEffect(() => {
     if (tarea.estado == "COMPLETO") {
       setEstado("Completo");
@@ -62,7 +68,12 @@ export default function TareaCard({ tarea, closeCard }) {
               ))}
             </Row>
           </Container>
-          <Button variant="secondary">Editar</Button>
+          <TareaModal
+            setActualizarTareas={setActualizarTareas}
+            estados={estados}
+            usuarios={usuarios}
+            tarea={tarea}
+          />
         </Card.Body>
       </Card>
     </div>
