@@ -37,4 +37,16 @@ const postTarea = async (data) => {
   }
 };
 
-export { getTareas, getTareaId, postTarea };
+const putTarea = async (id, data) => {
+  try {
+    const res = await api.put(`/tareas/${id}`, data);
+    return res.data;
+  } catch (error) {
+    console.log(error.response.data);
+    console.log(error.response.status);
+    console.log(error.response.headers);
+    throw Error("Error al crear tarea");
+  }
+};
+
+export { getTareas, getTareaId, postTarea, putTarea };

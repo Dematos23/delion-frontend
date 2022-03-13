@@ -1,7 +1,7 @@
 import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { postTarea } from "../services/tareas.service.js";
-import { add } from "date-fns";
+import { postTarea, putTarea } from "../services/tareas.service.js";
+import { format } from "date-fns";
 
 export default function TareaModal({
   estados,
@@ -14,34 +14,31 @@ export default function TareaModal({
 
   const handleClose = () => {
     setShow(false);
-    setTareaNombre(undefined);
-    setDescripcion(undefined);
-    setDeadline(undefined);
-    setEstado(undefined);
-    setResponsableId(undefined);
-    setSupervisorId(undefined);
-    setTareaEditada(undefined);
-  };
-  const handleShow = () => {
-    setShow(true);
-    // const estadosNuevos
-    if (tarea.estado == "COMPLETO") {
-      tarea.estado == "Completo";
-    } else if (tarea.estado == "EN_PROCESO") {
-      tarea.estado == "En proceso";
-    } else if (tarea.estado == "EN_REVISION") {
-      tarea.estado == "En revision";
-    }
   };
 
+  const handleShow = () => {
+    if (!(tarea == undefined)) {
+      tarea.deadline = format(+new Date(tarea.deadline), "yyyy-MM-dd");
+    }
+    setShow(true);
+  };
+
+  const addDay = (fechaValue, cantidadDias) => {
+    const fecha = new Date(fechaValue);
+    fecha.setDate(fecha.getDate() + cantidadDias);
+    return fecha;
+  };
+
+  // const responsableDefault =
+  //   tarea.responsable.nombre + tarea.responsable.apellido;
+
   // Submit
-  const manejarSubmit = async (e) => {
+  const postSubmit = async (e) => {
     e.preventDefault();
     const tareaData = new FormData(e.target);
     const tareaObjt = Object.fromEntries(tareaData.entries());
     e.target.responsable.getAttribute("responsableid");
-    tareaObjt.deadline = add(new Date(e.target.deadline.value), { hours: 5 });
-    console.log(typeof tareaObjt.deadline);
+    tareaObjt.deadline = addDay(e.target.deadline.value, 1);
     tareaObjt.responsableId = +tareaObjt.responsable;
     tareaObjt.supervisorId = +tareaObjt.supervisor;
     tareaObjt.creadorId = +localStorage.getItem("usuarioId");
@@ -55,22 +52,30 @@ export default function TareaModal({
     await postTarea(tareaObjt);
     setActualizarTareas(true);
   };
+  const putSubmit = async (e) => {
+    e.preventDefault();
+    const tareaData = new FormData(e.target);
+    const tareaObjt = Object.fromEntries(tareaData.entries());
+    tareaObjt.tarea = e.target.tarea.value;
+    tareaObjt.descripcion = e.target.descripcion.value;
+    e.target.responsable.getAttribute("responsableid");
+    tareaObjt.deadline = addDay(e.target.deadline.value, 1);
+    tareaObjt.responsableId = +tareaObjt.responsable;
+    tareaObjt.supervisorId = +tareaObjt.supervisor;
+    tareaObjt.creadorId = +localStorage.getItem("usuarioId");
+    if (tareaObjt.estado === "Completo") {
+      tareaObjt.estado = "COMPLETO";
+    } else if (tareaObjt.estado === "En proceso") {
+      tareaObjt.estado = "EN_PROCESO";
+    } else if (tareaObjt.estado === "En revision") {
+      tareaObjt.estado = "EN_REVISION";
+    }
+    tareaObjt.usuarioId = +localStorage.getItem("usuarioId");
+    console.log(tareaObjt);
+    await putTarea(+tarea.id, tareaObjt);
+    setActualizarTareas(true);
+  };
 
-  // EDITAR TAREA
-  const [tareaNombre, setTareaNombre] = useState();
-  const [descripcion, setDescripcion] = useState();
-  const [deadline, setDeadline] = useState();
-  const [estado, setEstado] = useState();
-  const [responsableId, setResponsableId] = useState();
-  const [supervisorId, setSupervisorId] = useState();
-  const [tareaEditada, setTareaEditada] = useState({
-    tarea: "",
-    descripcion: "",
-    deadline: "2023-03-07T14:24:38.427Z",
-    estado: "COMPLETO",
-    responsableId: 14,
-    supervisorId: 9,
-  });
   return (
     <div>
       {tarea === undefined ? (
@@ -85,7 +90,7 @@ export default function TareaModal({
             <Modal.Body>
               <Form
                 onSubmit={(e) => {
-                  manejarSubmit(e);
+                  postSubmit(e);
                 }}
               >
                 <Form.Group className="mb-3">
@@ -151,7 +156,7 @@ export default function TareaModal({
                     Cerrar
                   </Button>
                   <Button variant="primary" type="submit" onClick={handleClose}>
-                    Submit
+                    Crear Tarea
                   </Button>
                 </Modal.Footer>
               </Form>
@@ -160,7 +165,7 @@ export default function TareaModal({
         </>
       ) : (
         <>
-          <Button variant="secondary" onClick={handleShow}>
+          <Button variant="secondary" onClick={handleShow} className="mt-3">
             Editar
           </Button>
           <Modal show={show} onHide={handleClose}>
@@ -170,19 +175,15 @@ export default function TareaModal({
             <Modal.Body>
               <Form
                 onSubmit={(e) => {
-                  manejarSubmit(e);
+                  putSubmit(e);
                 }}
               >
                 <Form.Group className="mb-3">
                   <Form.Label>Tarea</Form.Label>
                   <Form.Control
                     type="string"
-                    placeholder="Ingresar nueva tarea"
                     name="tarea"
-                    value={
-                      tareaNombre === undefined ? tarea.tarea : tareaNombre
-                    }
-                    onChange={(e) => setTareaNombre(e.target.value)}
+                    defaultValue={tarea.tarea}
                   />
                 </Form.Group>
 
@@ -191,14 +192,8 @@ export default function TareaModal({
                   <Form.Control
                     as="textarea"
                     rows={3}
-                    placeholder="Ingresar descripción de la tarea"
                     name="descripcion"
-                    value={
-                      descripcion === undefined
-                        ? tarea.descripcion
-                        : descripcion
-                    }
-                    onChange={(e) => setDescripcion(e.target.value)}
+                    defaultValue={tarea.descripcion}
                   />
                 </Form.Group>
 
@@ -208,68 +203,70 @@ export default function TareaModal({
                     defaultValue={tarea.estado}
                     name="estado"
                     as="select"
-                    // value={estado === undefined ? tarea.estado : estado}
-                    // onChange={(e) => setEstado(e.target.value)}
                   >
-                    <option key="current" value={tarea.estado}>
-                      {tarea.estado}
-                    </option>
-                    {estados.map(
-                      (estado, i) => (
-                        <option key={i} value={estado}>
-                          {estado}
-                        </option>
-                      )
-                      // {
-                      //   if (estado == tarea.estado) {
-                      //     return (
-                      //       <option
-                      //         key={i}
-                      //         value={estado}
-                      //         defaultValue={tarea.estado}
-                      //       >
-                      //         {estado}
-                      //       </option>
-                      //     );
-                      //   } else {
-                      //     return (
-                      //       <option key={i} value={estado}>
-                      //         {estado}
-                      //       </option>
-                      //     );
-                      //   }
-                      // }
-                    )}
+                    {estados.map((estado, i) => (
+                      <option key={i}>{estado}</option>
+                    ))}
                   </Form.Control>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                   <Form.Label label="Deadline">
                     Deadline
-                    <Form.Control type="date" name="deadline" />
+                    <Form.Control
+                      type="date"
+                      name="deadline"
+                      defaultValue={tarea.deadline}
+                    />
                   </Form.Label>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                   <Form.Label>Responsable</Form.Label>
-                  <Form.Select name="responsable">
-                    {usuarios.map((usuario, i) => (
-                      <option key={i} value={usuario.id}>
-                        {usuario.nombre} {usuario.apellido}
-                      </option>
-                    ))}
-                  </Form.Select>
+                  <Form.Control name="responsable" as="select">
+                    {usuarios.map((usuario, i) => {
+                      if (
+                        tarea.responsable.nombre == usuario.nombre &&
+                        tarea.responsable.apellido == usuario.apellido
+                      ) {
+                        return (
+                          <option key={i} value={usuario.id} selected>
+                            {usuario.nombre} {usuario.apellido}
+                          </option>
+                        );
+                      } else {
+                        return (
+                          <option key={i} value={usuario.id}>
+                            {usuario.nombre} {usuario.apellido}
+                          </option>
+                        );
+                      }
+                    })}
+                  </Form.Control>
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                   <Form.Label>Supervisor</Form.Label>
-                  <Form.Select name="supervisor">
-                    {usuarios.map((usuario, i) => (
-                      <option key={i} value={usuario.id}>
-                        {usuario.nombre} {usuario.apellido}
-                      </option>
-                    ))}
-                  </Form.Select>
+                  <Form.Control name="supervisor" as="select">
+                    {usuarios.map((usuario, i) => {
+                      if (
+                        tarea.supervisor.nombre == usuario.nombre &&
+                        tarea.supervisor.apellido == usuario.apellido
+                      ) {
+                        return (
+                          <option key={i} value={usuario.id} selected>
+                            {usuario.nombre} {usuario.apellido}
+                          </option>
+                        );
+                      } else {
+                        return (
+                          <option key={i} value={usuario.id}>
+                            {usuario.nombre} {usuario.apellido}
+                          </option>
+                        );
+                      }
+                    })}
+                  </Form.Control>
                 </Form.Group>
 
                 {/* Footer */}
@@ -278,7 +275,7 @@ export default function TareaModal({
                     Cerrar
                   </Button>
                   <Button variant="primary" type="submit" onClick={handleClose}>
-                    Submit
+                    Guardar
                   </Button>
                 </Modal.Footer>
               </Form>

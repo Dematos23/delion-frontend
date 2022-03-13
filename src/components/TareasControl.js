@@ -17,12 +17,25 @@ import {
 } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
 import TareaModal from "./TareaModal.js";
+import { estadoForPrisma } from "../utils/estadoHandler.js";
 
 export default function TareasControl({
   setActualizarTareas,
+  setReq,
   usuarios,
   estados,
 }) {
+  const newReq = {
+    usuarioId: +localStorage.getItem("usuarioId"),
+    orderBy: "deadline",
+    sort: "asc",
+    estado: ["EN_PROCESO", "EN_REVISION"],
+    responsableId: "",
+    supervisorId: "",
+    deadline: "",
+  };
+  const [pepe, setEstado] = useState();
+
   return (
     <div>
       <Navbar bg="light" expand="lg">
@@ -33,6 +46,7 @@ export default function TareasControl({
                 setActualizarTareas={setActualizarTareas}
                 estados={estados}
                 usuarios={usuarios}
+                tarea={undefined}
               />
             </Navbar.Brand>
             <Navbar.Toggle>
@@ -57,7 +71,15 @@ export default function TareasControl({
                     variant="secondary"
                   >
                     {estados.map((estado, i) => (
-                      <Dropdown.Item key={i}>{estado}</Dropdown.Item>
+                      <Dropdown.Item
+                        key={i}
+                        onClick={() => {
+                          setEstado(estado);
+                          console.log(pepe);
+                        }}
+                      >
+                        {estado}
+                      </Dropdown.Item>
                     ))}
                   </DropdownButton>
 

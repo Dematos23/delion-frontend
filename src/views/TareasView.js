@@ -12,12 +12,12 @@ export default function TareasView() {
     usuarioId: +localStorage.getItem("usuarioId"),
     orderBy: "deadline",
     sort: "asc",
-    estado: ["EN_PROCESO", "EN_REVISION"],
-    // responsableId: 12,
+    // estado: ["EN_REVISION"],
+    responsableId: 13,
   };
   const [req, setReq] = useState(reqInicial);
   const [actualizarTareas, setActualizarTareas] = useState(true);
-  const estados = ["En proceso", "En En revision", "Completo"];
+  const estados = ["En proceso", "En revision", "Completo"];
 
   useEffect(() => {
     const fetch = async () => {
@@ -44,6 +44,7 @@ export default function TareasView() {
         setActualizarTareas={setActualizarTareas}
         usuarios={usuarios}
         estados={estados}
+        setReq={setReq}
       ></TareasControl>
       <TareasLista
         tareas={tareas}

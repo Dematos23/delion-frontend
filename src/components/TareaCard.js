@@ -12,15 +12,14 @@ export default function TareaCard({
   usuarios,
   estados,
 }) {
-  const [estado, setEstado] = useState();
   const [deadline, setDeadline] = useState();
   useEffect(() => {
     if (tarea.estado == "COMPLETO") {
-      setEstado("Completo");
+      tarea.estado = "Completo";
     } else if (tarea.estado == "EN_PROCESO") {
-      setEstado("En proceso");
+      tarea.estado = "En proceso";
     } else if (tarea.estado == "EN_REVISION") {
-      setEstado("En revision");
+      tarea.estado = "En revision";
     }
 
     setDeadline(format(new Date(tarea.deadline), "dd-MMM-yyyy"));
@@ -29,9 +28,13 @@ export default function TareaCard({
   return (
     <div>
       <Card>
-        <Card.Header>
-          {tarea.tarea}
-          <CloseButton onClick={closeCard} />
+        <Card.Header className="pb-1">
+          <Row>
+            <Col>{tarea.tarea}</Col>
+            <Col sm={2}>
+              <CloseButton onClick={closeCard} />
+            </Col>
+          </Row>
         </Card.Header>
 
         <Card.Body>
@@ -46,7 +49,7 @@ export default function TareaCard({
             {tarea.supervisor.nombre} {tarea.supervisor.apellido}
           </Card.Text>
           <Card.Text as={Col}>Estado:</Card.Text>
-          <Card.Text>{estado}</Card.Text>
+          <Card.Text>{tarea.estado}</Card.Text>
           <Card.Text as={Col}>Archivos:</Card.Text>
           <Container>
             <Row>
