@@ -39,11 +39,11 @@ export default function TareasLista({
               <tbody>
                 {tareas.map(
                   ({ id, tarea, deadline, estado, responsable }, i) => {
-                    if (estado == "COMPLETO") {
+                    if (estado === "COMPLETO") {
                       estado = "Completo";
-                    } else if (estado == "EN_PROCESO") {
+                    } else if (estado === "EN_PROCESO") {
                       estado = "En proceso";
-                    } else if (estado == "EN_REVISION") {
+                    } else if (estado === "EN_REVISION") {
                       estado = "En revision";
                     }
                     deadline = format(+new Date(deadline), "dd-MMMM-yyyy");

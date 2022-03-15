@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
-import { Button, Container, Row, Col, CloseButton } from "react-bootstrap";
+import { Container, Row, Col, CloseButton } from "react-bootstrap";
 import { format } from "date-fns";
 import Card from "react-bootstrap/Card";
 import { BsFillFileEarmarkPdfFill } from "react-icons/bs";
@@ -14,11 +14,11 @@ export default function TareaCard({
 }) {
   const [deadline, setDeadline] = useState();
   useEffect(() => {
-    if (tarea.estado == "COMPLETO") {
+    if (tarea.estado === "COMPLETO") {
       tarea.estado = "Completo";
-    } else if (tarea.estado == "EN_PROCESO") {
+    } else if (tarea.estado === "EN_PROCESO") {
       tarea.estado = "En proceso";
-    } else if (tarea.estado == "EN_REVISION") {
+    } else if (tarea.estado === "EN_REVISION") {
       tarea.estado = "En revision";
     }
 
@@ -57,12 +57,12 @@ export default function TareaCard({
                 <Fragment key={i}>
                   <Col>
                     <Row>
-                      <a href={archivo.url} target="_blank">
+                      <a href={archivo.url} target="_blank" rel="noreferrer">
                         <BsFillFileEarmarkPdfFill />
                       </a>
                     </Row>
                     <Row>
-                      <a href={archivo.url} target="_blank">
+                      <a href={archivo.url} target="_blank" rel="noreferrer">
                         {archivo.nombre}
                       </a>
                     </Row>

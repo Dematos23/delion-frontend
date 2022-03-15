@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -10,8 +9,8 @@ export default function LoginView() {
 
   const manejarSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.taget);
-    const dataObject = Object.fromEntries(formData.entries()); // PENDIENTE
+    // const formData = new FormData(e.taget);
+    // const dataObject = Object.fromEntries(formData.entries()); // PENDIENTE
 
     await login();
     navigate("/tareas");

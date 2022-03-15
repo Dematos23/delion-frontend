@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { getTareas } from "../services/tareas.service.js";
 import TareasLista from "../components/TareasLista.js";
 import TareasControl from "../components/TareasControl.js";
-import { Button, Row, Col } from "react-bootstrap";
 import { getUsuarios } from "../services/usuarios.service.js";
 
 export default function TareasView() {
@@ -12,7 +11,7 @@ export default function TareasView() {
     usuarioId: +localStorage.getItem("usuarioId"),
     orderBy: "deadline",
     sort: "asc",
-    // estado: ["EN_REVISION"],
+    estado: ["EN_PROCESO", "EN_REVISION"],
     responsableId: 13,
   };
   const [req, setReq] = useState(reqInicial);
@@ -30,13 +29,14 @@ export default function TareasView() {
   useEffect(() => {
     const fetch = async () => {
       const dataTareas = await getTareas(req);
+      // console.log(dataTareas);
       setTareas(dataTareas);
     };
     if (actualizarTareas === true) {
       fetch();
       setActualizarTareas(false);
     }
-  }, [actualizarTareas]);
+  }, [actualizarTareas, req]);
 
   return (
     <div>
@@ -44,7 +44,9 @@ export default function TareasView() {
         setActualizarTareas={setActualizarTareas}
         usuarios={usuarios}
         estados={estados}
+        req={req}
         setReq={setReq}
+        tareas={tareas}
       ></TareasControl>
       <TareasLista
         tareas={tareas}

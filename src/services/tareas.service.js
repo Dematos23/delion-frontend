@@ -1,5 +1,4 @@
 import api from "./api/tareas.js";
-import add from "date-fns/add";
 
 const getTareas = async (data) => {
   try {

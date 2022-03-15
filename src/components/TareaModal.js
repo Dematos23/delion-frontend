@@ -1,5 +1,5 @@
-import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { Button, Modal, Form } from "react-bootstrap";
+import { useState } from "react";
 import { postTarea, putTarea } from "../services/tareas.service.js";
 import { format } from "date-fns";
 
@@ -17,7 +17,7 @@ export default function TareaModal({
   };
 
   const handleShow = () => {
-    if (!(tarea == undefined)) {
+    if (!(tarea === undefined)) {
       tarea.deadline = format(+new Date(tarea.deadline), "yyyy-MM-dd");
     }
     setShow(true);
@@ -226,8 +226,8 @@ export default function TareaModal({
                   <Form.Control name="responsable" as="select">
                     {usuarios.map((usuario, i) => {
                       if (
-                        tarea.responsable.nombre == usuario.nombre &&
-                        tarea.responsable.apellido == usuario.apellido
+                        tarea.responsable.nombre === usuario.nombre &&
+                        tarea.responsable.apellido === usuario.apellido
                       ) {
                         return (
                           <option key={i} value={usuario.id} selected>
@@ -250,8 +250,8 @@ export default function TareaModal({
                   <Form.Control name="supervisor" as="select">
                     {usuarios.map((usuario, i) => {
                       if (
-                        tarea.supervisor.nombre == usuario.nombre &&
-                        tarea.supervisor.apellido == usuario.apellido
+                        tarea.supervisor.nombre === usuario.nombre &&
+                        tarea.supervisor.apellido === usuario.apellido
                       ) {
                         return (
                           <option key={i} value={usuario.id} selected>

@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginView from "./views/LoginView.js";
 import TareasView from "./views/TareasView.js";

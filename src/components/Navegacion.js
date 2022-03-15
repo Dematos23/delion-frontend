@@ -16,17 +16,17 @@ export default function Navegacion() {
       >
         <Container fluid>
           <Navbar.Brand>
-            <Link to="/login">
+            <Link to="/login" style={{ textDecoration: "none" }}>
               <h2>Estudio Delion</h2>
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav>
-              {/* <Nav.Link eventKey="1" as={Link} to="/DashboardView">
+              <Nav.Link eventKey="1" as={Link} to="/DashboardView">
                 Dashboard
               </Nav.Link>
-              <Nav.Link eventKey="2" as={Link} to="/ListaTareasView">
+              <Nav.Link eventKey="2" as={Link} to="/tareas">
                 Tareas
               </Nav.Link>
               <Nav.Link eventKey="3" as={Link} to="/CajaView">
@@ -43,7 +43,7 @@ export default function Navegacion() {
               </Nav.Link>
               <Nav.Link eventKey="7" as={Link} to="/LogisticaView">
                 Logística
-              </Nav.Link> */}
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
