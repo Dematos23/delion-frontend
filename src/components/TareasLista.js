@@ -1,14 +1,18 @@
 import { useState, Fragment } from "react";
-import { getTareaId } from "../services/tareas.service.js";
+import { getTareaId, deleteTarea } from "../services/tareas.service.js";
 import { Button, Table, Row, Col, Container } from "react-bootstrap";
 import { format } from "date-fns";
 import TareaCard from "../components/TareaCard.js";
+import { BsArrowDownUp } from "react-icons/bs";
+import { estadoForPrisma } from "../utils/estadoHandler.js";
 
 export default function TareasLista({
   tareas,
   setActualizarTareas,
   usuarios,
   estados,
+  req,
+  setReq,
 }) {
   const [tarea, setTarea] = useState();
   const [showCard, setShowCard] = useState(false);
@@ -21,6 +25,29 @@ export default function TareasLista({
     setTarea(data);
     setShowCard(true);
   };
+
+  const deletData = { usuarioId: +localStorage.getItem("usuarioId") };
+
+  const [confirm, setConfirm] = useState(null);
+  const eliminarTarea = async (id, data) => {
+    await deleteTarea(id, data);
+    setActualizarTareas(true);
+    setConfirm(null);
+  };
+  const [sortBy, setSortBy] = useState("asc");
+  const tareaOrderBy = (orderBy) => {
+    const newReq = req;
+    newReq.orderBy = orderBy;
+    newReq.sort = sortBy;
+    if (sortBy === "asc") {
+      setSortBy("desc");
+    } else {
+      setSortBy("asc");
+    }
+    setReq(newReq);
+    setActualizarTareas(true);
+  };
+
   return (
     <div>
       <Row>
@@ -29,10 +56,50 @@ export default function TareasLista({
             <Table>
               <thead>
                 <tr>
-                  <th>Tarea</th>
-                  <th>Deadline</th>
-                  <th>Estado</th>
-                  <th>Responsable</th>
+                  <th>
+                    Tarea
+                    <Button
+                      variant="link"
+                      onClick={(e) => {
+                        tareaOrderBy("tarea");
+                      }}
+                    >
+                      <BsArrowDownUp></BsArrowDownUp>
+                    </Button>
+                  </th>
+                  <th>
+                    Deadline
+                    <Button
+                      variant="link"
+                      onClick={(e) => {
+                        tareaOrderBy("deadline");
+                      }}
+                    >
+                      <BsArrowDownUp></BsArrowDownUp>
+                    </Button>
+                  </th>
+                  <th>
+                    Estado
+                    <Button
+                      variant="link"
+                      onClick={(e) => {
+                        tareaOrderBy("estado");
+                      }}
+                    >
+                      <BsArrowDownUp></BsArrowDownUp>
+                    </Button>
+                  </th>
+                  <th>
+                    Responsable
+                    <Button
+                      variant="link"
+                      onClick={(e) => {
+                        tareaOrderBy("responsableId");
+                      }}
+                    >
+                      <BsArrowDownUp></BsArrowDownUp>
+                    </Button>
+                  </th>
                   <th></th>
                 </tr>
               </thead>
@@ -57,9 +124,55 @@ export default function TareasLista({
                             {responsable.nombre} {responsable.apellido}
                           </td>
                           <td>
-                            <Button onClick={openCard} id={id}>
-                              Abrir
-                            </Button>
+                            <Row>
+                              <Col xl={2} md={3}>
+                                <Button onClick={openCard} id={id}>
+                                  Abrir
+                                </Button>
+                              </Col>
+                              <Col md={6}>
+                                {confirm === id ? (
+                                  <Col>
+                                    <Row>
+                                      <Col md={4}>
+                                        <p>¿Desea eliminar la tarea?</p>
+                                      </Col>
+                                      <Col md={4}>
+                                        <Button
+                                          variant="secondary"
+                                          onClick={() => setConfirm(false)}
+                                        >
+                                          Cancelar
+                                        </Button>
+                                      </Col>
+                                      <Col md={4}>
+                                        <Button
+                                          variant="danger"
+                                          onClick={(e) => {
+                                            eliminarTarea(
+                                              +e.target.id,
+                                              deletData
+                                            );
+                                          }}
+                                          id={id}
+                                        >
+                                          Eliminar
+                                        </Button>
+                                      </Col>
+                                    </Row>
+                                  </Col>
+                                ) : (
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => {
+                                      setConfirm(id);
+                                    }}
+                                  >
+                                    Eliminar
+                                  </Button>
+                                )}
+                              </Col>
+                            </Row>
                           </td>
                         </tr>
                       </Fragment>

@@ -29,7 +29,7 @@ export default function Navegacion() {
               <Nav.Link eventKey="2" as={Link} to="/tareas">
                 Tareas
               </Nav.Link>
-              <Nav.Link eventKey="3" as={Link} to="/CajaView">
+              {/* <Nav.Link eventKey="3" as={Link} to="/CajaView">
                 Tesoreria
               </Nav.Link>
               <Nav.Link eventKey="4" as={Link} to="/ProcesosView">
@@ -43,6 +43,9 @@ export default function Navegacion() {
               </Nav.Link>
               <Nav.Link eventKey="7" as={Link} to="/LogisticaView">
                 Logística
+              </Nav.Link> */}
+              <Nav.Link eventKey="8" as={Link} to="/Busqueda">
+                Búsqueda
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

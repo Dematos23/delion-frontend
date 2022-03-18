@@ -12,7 +12,7 @@ export default function TareasView() {
     orderBy: "deadline",
     sort: "asc",
     estado: ["EN_PROCESO", "EN_REVISION"],
-    responsableId: 13,
+    responsableId: +localStorage.getItem("usuarioId"),
   };
   const [req, setReq] = useState(reqInicial);
   const [actualizarTareas, setActualizarTareas] = useState(true);
@@ -53,6 +53,8 @@ export default function TareasView() {
         setActualizarTareas={setActualizarTareas}
         usuarios={usuarios}
         estados={estados}
+        req={req}
+        setReq={setReq}
       ></TareasLista>
     </div>
   );
