@@ -23,9 +23,9 @@ export default function Navegacion() {
           <Navbar.Toggle />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav>
-              <Nav.Link eventKey="1" as={Link} to="/DashboardView">
+              {/* <Nav.Link eventKey="1" as={Link} to="/DashboardView">
                 Dashboard
-              </Nav.Link>
+              </Nav.Link> */}
               <Nav.Link eventKey="2" as={Link} to="/tareas">
                 Tareas
               </Nav.Link>

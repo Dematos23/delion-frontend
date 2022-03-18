@@ -130,7 +130,7 @@ export default function TareasLista({
                                   Abrir
                                 </Button>
                               </Col>
-                              <Col md={6}>
+                              <Col>
                                 {confirm === id ? (
                                   <Col>
                                     <Row>
