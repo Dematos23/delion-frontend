@@ -27,11 +27,11 @@ const postS3 = async (url, file) => {
   try {
     // const data = new FormData();
     // data.append("file", file);
-
+    console.log(url);
     await fetch(url, {
       method: "PUT",
       headers: {
-        "Content-Type": "binary",
+        "Content-Type": "application/pdf",
       },
       body: file,
     });

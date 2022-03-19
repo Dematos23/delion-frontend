@@ -45,8 +45,8 @@ export default function TareaCard({
       };
       const res = await postArchivo(data);
       const url = res.data.url;
-      await postS3(url, file);
       setActualizarTareas(true);
+      await postS3(url, file);
     }
   };
 
