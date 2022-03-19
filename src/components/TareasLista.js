@@ -125,19 +125,19 @@ export default function TareasLista({
                           </td>
                           <td>
                             <Row>
-                              <Col xl={2} md={3}>
+                              <Col md={3}>
                                 <Button onClick={openCard} id={id}>
                                   Abrir
                                 </Button>
                               </Col>
-                              <Col>
+                              <Col lg={9}>
                                 {confirm === id ? (
                                   <Col>
                                     <Row>
-                                      <Col md={4}>
+                                      <Col md={6}>
                                         <p>¿Desea eliminar la tarea?</p>
                                       </Col>
-                                      <Col md={4}>
+                                      <Col md={3}>
                                         <Button
                                           variant="secondary"
                                           onClick={() => setConfirm(false)}
@@ -145,7 +145,7 @@ export default function TareasLista({
                                           Cancelar
                                         </Button>
                                       </Col>
-                                      <Col md={4}>
+                                      <Col md={3}>
                                         <Button
                                           variant="danger"
                                           onClick={(e) => {
@@ -163,6 +163,7 @@ export default function TareasLista({
                                   </Col>
                                 ) : (
                                   <Button
+                                    md={3}
                                     variant="danger"
                                     onClick={() => {
                                       setConfirm(id);

@@ -125,12 +125,12 @@ export default function TareasControl({
           <Navbar.Collapse>
             <Nav className="me-auto">
               <Stack direction="horizontal" gap={3}>
-                <InputGroup>
+                {/* <InputGroup>
                   <FormControl type="search" placeholder="Buscar tarea" />
                   <Button variant="outline-secondary">
                     <BsSearch></BsSearch>
                   </Button>
-                </InputGroup>
+                </InputGroup> */}
 
                 <ButtonGroup vertical={false}>
                   <DropdownButton
@@ -176,14 +176,14 @@ export default function TareasControl({
                   </DropdownButton>
                 </ButtonGroup>
 
-                <ButtonGroup>
+                {/* <ButtonGroup>
                   <Form.Control
                     type="date"
                     name="deadline"
                     value={deadline}
                     onChange={(e) => setDeadline(e.target.value)}
                   />
-                </ButtonGroup>
+                </ButtonGroup> */}
 
                 <OverlayTrigger
                   placement="bottom"

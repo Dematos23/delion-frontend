@@ -77,7 +77,7 @@ export default function TareaCard({
           <Card.Text>{tarea.estado}</Card.Text>
           <Card.Text as={Col}>Archivos:</Card.Text>
           <Container>
-            <Row as={Form}>
+            <Row as={Form} className="mb-3 mt-2">
               <Col>
                 <Form.Control
                   type="file"
@@ -101,18 +101,18 @@ export default function TareaCard({
             <Row>
               {tarea.archivos.map((archivo, i) => (
                 <Fragment key={i}>
-                  <Col>
-                    <Row>
+                  <Row className="mb-1">
+                    <Col md={1}>
                       <a href={archivo.url} target="_blank" rel="noreferrer">
                         <BsFillFileEarmarkPdfFill />
                       </a>
-                    </Row>
-                    <Row>
+                    </Col>
+                    <Col>
                       <a href={archivo.url} target="_blank" rel="noreferrer">
                         {archivo.nombre}
                       </a>
-                    </Row>
-                  </Col>
+                    </Col>
+                  </Row>
                 </Fragment>
               ))}
             </Row>
