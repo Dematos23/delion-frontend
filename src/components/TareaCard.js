@@ -1,9 +1,17 @@
 import { useState, useEffect, Fragment } from "react";
-import { Container, Row, Col, CloseButton } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  CloseButton,
+  Form,
+  Button,
+} from "react-bootstrap";
 import { format } from "date-fns";
 import Card from "react-bootstrap/Card";
 import { BsFillFileEarmarkPdfFill } from "react-icons/bs";
 import TareaModal from "./TareaModal.js";
+import { postArchivo, postS3 } from "../services/archivos.service";
 
 export default function TareaCard({
   tarea,
@@ -24,6 +32,23 @@ export default function TareaCard({
 
     setDeadline(format(new Date(tarea.deadline), "dd-MMM-yyyy"));
   });
+
+  const [files, setFile] = useState([]);
+  const subirArchivos = async (filesArray) => {
+    for (let index = 0; index < filesArray.length; index++) {
+      const file = filesArray[index];
+      const data = {
+        tareaId: tarea.id,
+        contentType: file.type,
+        ext: file.name.split(".")[1],
+        filename: file.name.split(".")[0],
+      };
+      const res = await postArchivo(data);
+      const url = res.data.url;
+      await postS3(url, file);
+      setActualizarTareas(true);
+    }
+  };
 
   return (
     <div>
@@ -52,6 +77,27 @@ export default function TareaCard({
           <Card.Text>{tarea.estado}</Card.Text>
           <Card.Text as={Col}>Archivos:</Card.Text>
           <Container>
+            <Row as={Form}>
+              <Col>
+                <Form.Control
+                  type="file"
+                  multiple
+                  onChange={(e) => {
+                    setFile(e.target.files);
+                  }}
+                />
+              </Col>
+              <Col md={2}>
+                <Button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    subirArchivos(files);
+                  }}
+                >
+                  Subir
+                </Button>
+              </Col>
+            </Row>
             <Row>
               {tarea.archivos.map((archivo, i) => (
                 <Fragment key={i}>
