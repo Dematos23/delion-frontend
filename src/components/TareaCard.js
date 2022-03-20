@@ -15,21 +15,21 @@ import { postArchivo, postS3, deleteS3 } from "../services/archivos.service";
 
 export default function TareaCard({
   tarea,
+  actualizarTareas,
   closeCard,
   setActualizarTareas,
   usuarios,
   estados,
 }) {
   const [deadline, setDeadline] = useState();
+  if (tarea.estado === "COMPLETO") {
+    tarea.estado = "Completo";
+  } else if (tarea.estado === "EN_PROCESO") {
+    tarea.estado = "En proceso";
+  } else if (tarea.estado === "EN_REVISION") {
+    tarea.estado = "En revision";
+  }
   useEffect(() => {
-    if (tarea.estado === "COMPLETO") {
-      tarea.estado = "Completo";
-    } else if (tarea.estado === "EN_PROCESO") {
-      tarea.estado = "En proceso";
-    } else if (tarea.estado === "EN_REVISION") {
-      tarea.estado = "En revision";
-    }
-
     setDeadline(format(new Date(tarea.deadline), "dd-MMM-yyyy"));
   });
 
@@ -45,8 +45,8 @@ export default function TareaCard({
       };
       const res = await postArchivo(data);
       const url = res.data.url;
-      setActualizarTareas(true);
       await postS3(url, file);
+      setActualizarTareas(true);
     }
   };
 

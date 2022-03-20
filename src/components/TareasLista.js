@@ -8,6 +8,7 @@ import { estadoForPrisma } from "../utils/estadoHandler.js";
 
 export default function TareasLista({
   tareas,
+  actualizarTareas,
   setActualizarTareas,
   usuarios,
   estados,
@@ -188,6 +189,7 @@ export default function TareasLista({
           <Col md={4}>
             <Container fluid className="pt-3">
               <TareaCard
+                actualizarTareas={actualizarTareas}
                 tarea={tarea}
                 closeCard={closeCard}
                 setActualizarTareas={setActualizarTareas}

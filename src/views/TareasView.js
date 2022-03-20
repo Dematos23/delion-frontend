@@ -49,6 +49,7 @@ export default function TareasView() {
         tareas={tareas}
       ></TareasControl>
       <TareasLista
+        actualizarTareas={actualizarTareas}
         tareas={tareas}
         setActualizarTareas={setActualizarTareas}
         usuarios={usuarios}
