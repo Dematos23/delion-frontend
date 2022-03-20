@@ -16,6 +16,8 @@ const login = async () => {
     });
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("usuarioId", res.data.usuarioId);
+    localStorage.setItem("nombre", res.data.nombre);
+    localStorage.setItem("apellido", res.data.apellido);
   } catch (error) {
     throw Error("Error al hacer login");
   }

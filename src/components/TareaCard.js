@@ -11,7 +11,7 @@ import { format } from "date-fns";
 import Card from "react-bootstrap/Card";
 import { BsFillFileEarmarkPdfFill } from "react-icons/bs";
 import TareaModal from "./TareaModal.js";
-import { postArchivo, postS3 } from "../services/archivos.service";
+import { postArchivo, postS3, deleteS3 } from "../services/archivos.service";
 
 export default function TareaCard({
   tarea,
@@ -48,6 +48,10 @@ export default function TareaCard({
       setActualizarTareas(true);
       await postS3(url, file);
     }
+  };
+
+  const eliminarArchivo = (id, nombre) => {
+    deleteS3(id, nombre);
   };
 
   return (
@@ -111,6 +115,17 @@ export default function TareaCard({
                       <a href={archivo.url} target="_blank" rel="noreferrer">
                         {archivo.nombre}
                       </a>
+                    </Col>
+                    <Col md={2}>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => {
+                          eliminarArchivo(tarea.id, archivo.nombre);
+                        }}
+                      >
+                        Eliminar
+                      </Button>
                     </Col>
                   </Row>
                 </Fragment>

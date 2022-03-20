@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
+import { Button } from "bootstrap";
 
 export default function Navegacion() {
   return (
@@ -48,6 +49,15 @@ export default function Navegacion() {
                 Búsqueda
               </Nav.Link>
             </Nav>
+            {/* <Button>hola</Button> */}
+            <Link
+              // as={Link}
+              onClick={console.log("hi")}
+              to="/login"
+              style={{ textDecoration: "none" }}
+            >
+              Sign Out
+            </Link>
           </Navbar.Collapse>
         </Container>
       </Navbar>

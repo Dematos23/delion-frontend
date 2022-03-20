@@ -4,8 +4,6 @@ const baseUrl = process.env.REACT_APP_API;
 
 const postArchivo = async (data) => {
   try {
-    // const res = await api.post("/archivostareas", data);
-
     const res = await axios({
       method: "post",
       url: `${baseUrl}/archivostareas`,
@@ -25,9 +23,6 @@ const postArchivo = async (data) => {
 
 const postS3 = async (url, file) => {
   try {
-    // const data = new FormData();
-    // data.append("file", file);
-    console.log(url);
     await fetch(url, {
       method: "PUT",
       headers: {
@@ -35,13 +30,7 @@ const postS3 = async (url, file) => {
       },
       body: file,
     });
-    return "se logró";
-    // const res = await axios({
-    //   method: "put",
-    //   url,
-    //   data: file,
-    // });
-    // return res;
+    return "se subió el archivo";
   } catch (error) {
     console.log(error.response.data);
     console.log(error.response.status);
@@ -50,4 +39,31 @@ const postS3 = async (url, file) => {
   }
 };
 
-export { postArchivo, postS3 };
+const deleteS3 = async (id, nombre) => {
+  try {
+    const res = await axios({
+      method: "delete",
+      url: `${baseUrl}/archivostareas`,
+      data: { id: +id, nombre: nombre },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    // await fetch(`${baseUrl}/archivostareas`, {
+    //   method: "DELETE",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: { id: id, nombre: nombre },
+    // });
+    return res;
+  } catch (error) {
+    console.log(error.response.data);
+    console.log(error.response.status);
+    console.log(error.response.headers);
+    throw Error("Error al eliminar archivo a S3");
+  }
+};
+
+export { postArchivo, postS3, deleteS3 };
