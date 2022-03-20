@@ -11,7 +11,7 @@ export default function ErrorView() {
       />
       <br />
       <Link to="/">
-        <h1>I wanna go back!</h1>
+        <h1>Regresar</h1>
       </Link>
     </Container>
   );

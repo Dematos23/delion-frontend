@@ -52,8 +52,10 @@ export default function Navegacion() {
             {/* <Button>hola</Button> */}
             <Link
               // as={Link}
-              onClick={console.log("hi")}
               to="/login"
+              onClick={() => {
+                localStorage.clear();
+              }}
               style={{ textDecoration: "none" }}
             >
               Sign Out

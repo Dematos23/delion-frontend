@@ -22,10 +22,10 @@ export default function LoginView() {
       <Col md={4}>
         <Container>
           <img
-            src="https://freesvg.org/img/abstract-user-flat-4.png "
+            src="http://www.estudiodelion.com.pe/paginas/assets/images/logo.png"
             alt="logo"
             width="200"
-            height="200"
+            className="mb-3 mt-5"
           />
           <Form
             onSubmit={(e) => {
