@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getTareas } from "../services/tareas.service.js";
-import TareasLista from "../components/TareasLista.js";
-import TareasControl from "../components/TareasControl.js";
+import TareasLista from "../components/Tareas/TareasLista.js";
+import TareasControl from "../components/Tareas/TareasControl.js";
 import { getUsuarios } from "../services/usuarios.service.js";
 
 export default function TareasView() {
@@ -29,7 +29,6 @@ export default function TareasView() {
   useEffect(() => {
     const fetch = async () => {
       const dataTareas = await getTareas(req);
-      // console.log(dataTareas);
       setTareas(dataTareas);
     };
     if (actualizarTareas === true) {

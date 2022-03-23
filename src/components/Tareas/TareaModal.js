@@ -1,6 +1,6 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import { useState } from "react";
-import { postTarea, putTarea } from "../services/tareas.service.js";
+import { postTarea, putTarea } from "../../services/tareas.service.js";
 import { format } from "date-fns";
 
 export default function TareaModal({

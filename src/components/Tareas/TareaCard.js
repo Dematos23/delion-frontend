@@ -11,7 +11,7 @@ import { format } from "date-fns";
 import Card from "react-bootstrap/Card";
 import { BsFillFileEarmarkPdfFill } from "react-icons/bs";
 import TareaModal from "./TareaModal.js";
-import { postArchivo, postS3, deleteS3 } from "../services/archivos.service";
+import { postArchivo, postS3, deleteS3 } from "../../services/archivos.service";
 
 export default function TareaCard({
   tarea,
@@ -20,6 +20,10 @@ export default function TareaCard({
   setActualizarTareas,
   usuarios,
   estados,
+  req,
+  setReq,
+  reOpen,
+  openCard,
 }) {
   const [deadline, setDeadline] = useState();
   if (tarea.estado === "COMPLETO") {

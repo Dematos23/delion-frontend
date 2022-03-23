@@ -1,10 +1,9 @@
 import { useState, Fragment } from "react";
-import { getTareaId, deleteTarea } from "../services/tareas.service.js";
+import { getTareaId, deleteTarea } from "../../services/tareas.service.js";
 import { Button, Table, Row, Col, Container } from "react-bootstrap";
 import { format } from "date-fns";
-import TareaCard from "../components/TareaCard.js";
+import TareaCard from "./TareaCard.js";
 import { BsArrowDownUp } from "react-icons/bs";
-import { estadoForPrisma } from "../utils/estadoHandler.js";
 
 export default function TareasLista({
   tareas,
@@ -24,6 +23,11 @@ export default function TareasLista({
   const openCard = async (e) => {
     const data = await getTareaId(e.target.id);
     setTarea(data);
+    setShowCard(true);
+  };
+
+  const reOpen = () => {
+    setShowCard(false);
     setShowCard(true);
   };
 
@@ -195,6 +199,10 @@ export default function TareasLista({
                 setActualizarTareas={setActualizarTareas}
                 usuarios={usuarios}
                 estados={estados}
+                req={req}
+                setReq={setReq}
+                reOpen={reOpen}
+                openCard={openCard}
               ></TareaCard>
             </Container>
           </Col>

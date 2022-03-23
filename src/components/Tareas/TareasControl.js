@@ -17,7 +17,7 @@ import {
 } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
 import TareaModal from "./TareaModal.js";
-import { estadoForPrisma } from "../utils/estadoHandler.js";
+import { estadoForPrisma } from "../../utils/estadoHandler.js";
 import Combobox from "react-widgets/Combobox";
 
 export default function TareasControl({
