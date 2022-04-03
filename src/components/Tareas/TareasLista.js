@@ -31,7 +31,7 @@ export default function TareasLista({
     setShowCard(true);
   };
 
-  const deletData = { usuarioId: +localStorage.getItem("usuarioId") };
+  const deleteData = { usuarioId: +localStorage.getItem("usuarioId") };
 
   const [confirm, setConfirm] = useState(null);
   const eliminarTarea = async (id, data) => {
@@ -156,7 +156,7 @@ export default function TareasLista({
                                           onClick={(e) => {
                                             eliminarTarea(
                                               +e.target.id,
-                                              deletData
+                                              deleteData
                                             );
                                           }}
                                           id={id}

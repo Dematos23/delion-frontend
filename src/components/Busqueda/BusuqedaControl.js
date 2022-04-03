@@ -1,0 +1,140 @@
+import { useState, useEffect } from "react";
+import {
+  Nav,
+  Navbar,
+  Container,
+  ButtonGroup,
+  Stack,
+  DropdownButton,
+  OverlayTrigger,
+  Tooltip,
+  ToggleButton,
+  Button,
+  Dropdown,
+  Form,
+  FormControl,
+  InputGroup,
+} from "react-bootstrap";
+import { BsSearch } from "react-icons/bs";
+import BusquedaModal from "./BusquedaModal.js";
+import { estadoForPrisma } from "../../utils/estadoHandler.js";
+import Combobox from "react-widgets/Combobox";
+
+export default function BusuqedaControl() {
+  return (
+    <div>
+      {/* <Navbar bg="light" expand="lg">
+        <Container fluid>
+          <ButtonGroup vertical>
+            <Navbar.Brand>
+              <TareaModal
+                setActualizarTareas={setActualizarTareas}
+                estados={estados}
+                usuarios={usuarios}
+                tarea={undefined}
+              />
+            </Navbar.Brand>
+            <Navbar.Toggle>
+              <i className="bi bi-filter"></i>Filtros
+            </Navbar.Toggle>
+          </ButtonGroup>
+
+          <Navbar.Collapse>
+            <Nav className="me-auto">
+              <Stack direction="horizontal" gap={3}> */}
+      {/* <InputGroup>
+              <FormControl type="search" placeholder="Buscar tarea" />
+              <Button variant="outline-secondary">
+                <BsSearch></BsSearch>
+              </Button>
+            </InputGroup> */}
+
+      {/* <ButtonGroup vertical={false}>
+                  <DropdownButton
+                    title="Estado"
+                    as={ButtonGroup}
+                    variant="secondary"
+                  >
+                    {estados.map((estado, i) => (
+                      <Dropdown.Item key={i} onClick={() => setEstado(estado)}>
+                        {estado}
+                      </Dropdown.Item>
+                    ))}
+                  </DropdownButton>
+
+                  <DropdownButton
+                    title="Responsable"
+                    as={ButtonGroup}
+                    variant="secondary"
+                  >
+                    {usuarios.map((usuario, i) => (
+                      <Dropdown.Item
+                        key={i}
+                        onClick={() => setResponsableId(usuario.id)}
+                      >
+                        {usuario.nombre} {usuario.apellido}
+                      </Dropdown.Item>
+                    ))}
+                  </DropdownButton>
+
+                  <DropdownButton
+                    title="Supervisor"
+                    as={ButtonGroup}
+                    variant="secondary"
+                  >
+                    {usuarios.map((usuario, i) => (
+                      <Dropdown.Item
+                        key={i}
+                        onClick={() => setSupervisorId(usuario.id)}
+                      >
+                        {usuario.nombre} {usuario.apellido}
+                      </Dropdown.Item>
+                    ))}
+                  </DropdownButton>
+                </ButtonGroup> */}
+
+      {/* <ButtonGroup>
+              <Form.Control
+                type="date"
+                name="deadline"
+                value={deadline}
+                onChange={(e) => setDeadline(e.target.value)}
+              />
+            </ButtonGroup> */}
+
+      {/* <OverlayTrigger
+                  placement="bottom"
+                  overlay={<Tooltip id="tooltipFiltro">Vista inicial.</Tooltip>}
+                >
+                  <Button variant="outline-primary" onClick={limpiar}>
+                    Limpiar
+                  </Button>
+                </OverlayTrigger>
+
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={
+                    <Tooltip id="tooltipFiltro">
+                      Incluir la tareas <strong>completadas</strong>.
+                    </Tooltip>
+                  }
+                >
+                  <ToggleButton
+                    id="toggle-check"
+                    type="checkbox"
+                    variant="outline-success"
+                    onClick={() =>
+                      setEstado(["EN_REVISION", "EN_PROCESO", "COMPLETO"])
+                    }
+                  >
+                    Todo
+                  </ToggleButton>
+                </OverlayTrigger>
+              </Stack>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar> */}
+    </div>
+  );
+}
